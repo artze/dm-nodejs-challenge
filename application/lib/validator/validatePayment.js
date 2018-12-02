@@ -11,8 +11,12 @@ module.exports = function validatePayment(payment) {
         throw new InvalidInputError('FROM_USER_ID field in Payment is missing or has incorrect format');
     }
 
-    if (!inputDataValidator.validateId(payment.toMerchantId)) {
+    if (payment.toMerchantId && !inputDataValidator.validateId(payment.toMerchantId)) {
         throw new InvalidInputError('TO_MERCHANT_ID field in Payment is missing or has incorrect format');
+    }
+
+    if (payment.toUserId && !inputDataValidator.validateId(payment.toUserId)) {
+        throw new InvalidInputError('TO_USER_ID field in Payment is missing or has incorrect format');
     }
 
     if (!inputDataValidator.validatePaymentAmount(payment.amount)) {

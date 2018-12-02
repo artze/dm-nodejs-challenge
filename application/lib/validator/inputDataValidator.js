@@ -26,7 +26,7 @@ function validateISODate(date) {
 }
 
 function validateMerchantName(merchantName) {
-    return /^[a-zA-Z0-9]{1,20}$/.test(merchantName);
+    return /^[a-zA-Z0-9_.]{1,20}$/.test(merchantName);
 }
 
 module.exports = {
