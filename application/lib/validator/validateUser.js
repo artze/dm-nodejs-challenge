@@ -12,7 +12,7 @@ function validateFirstOrLastName(firstOrLastName) {
     return /^[a-zA-Z]{1,100}$/.test(firstOrLastName);
 }
 
-function validateUser(user) {
+module.exports = function validateUser(user) {
 
     /**
      * validate id
@@ -49,13 +49,3 @@ function validateUser(user) {
         console.error('email error');
     }
 }
-
-var user = {
-    id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
-    userName: 'Arturo_Tremblay',
-    firstName: 'Charlotte',
-    lastName: 'Bradtke',
-}
-
-validateUser(user)
-console.log('done')
