@@ -1,4 +1,5 @@
 const validateUser = require('./validateUser');
+const InvalidInputError = require('./InvalidInputError')
 
 function validate(inputData) {
     inputData.forEach(function(data) {
@@ -9,7 +10,7 @@ function validate(inputData) {
         } else if (data.type === 'merchant') {
 
         } else {
-            console.error('type error')
+            throw new InvalidInputError('\'type\' field is missing or has incorrect format')
         }
     })
 }

@@ -1,4 +1,5 @@
 const emailValidator = require('email-validator')
+const InvalidInputError = require('./InvalidInputError')
 
 function validateId(id) {
     return /^[a-zA-Z0-9]{64}$/.test(id);
@@ -18,34 +19,34 @@ module.exports = function validateUser(user) {
      * validate id
      */
     if (!validateId(user.id)) {
-        console.error('id format error');
+        throw new InvalidInputError('\'id\' field is missing or has incorrect format');
     }
 
     /**
      * validate userName
      */
     if (!validateUserName(user.userName)) {
-        console.error('user name format error');
+        throw new InvalidInputError('\'userName\' field is missing or has incorrect format');
     }
 
     /**
      * validate first name
      */
     if (user.firstName && !validateFirstOrLastName(user.firstName)) {
-        console.error('first name error')
+        throw new InvalidInputError('\'firstName\' has incorrect format')
     }
 
     /**
      * validate last name
      */
     if (user.lastName && !validateFirstOrLastName(user.lastName)) {
-        console.error('last name error');
+        throw new InvalidInputError('\'lastName\' has incorrect format');
     }
 
     /**
      * validate email according to RFC
      */
     if (user.email && !emailValidator.validate(user.email)) {
-        console.error('email error');
+        throw new InvalidInputError('\'email\' has incorrect format');
     }
 }
