@@ -3,16 +3,18 @@ const validatePayment = require('./validatePayment');
 const validateMerchant = require('./validateMerchant');
 const InvalidInputError = require('./InvalidInputError')
 
+const validator = {
+    'user': validateUser,
+    'payment': validatePayment,
+    'merchant': validateMerchant
+}
+
 module.exports = function validate(inputData) {
     inputData.forEach(function(data) {
-        if (data.type === 'user') {
-            validateUser(data);
-        } else if (data.type === 'payment') {
-            validatePayment(data);
-        } else if (data.type === 'merchant') {
-            validateMerchant(data);
+        if (Object.keys(validator).includes(data.type)) {
+            validator[data.type](data);
         } else {
-            throw new InvalidInputError('\'type\' field is missing or has incorrect format')
+            throw new InvalidInputError('TYPE field is missing or has incorrect format');
         }
     })
 }
