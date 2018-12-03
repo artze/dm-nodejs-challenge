@@ -1,7 +1,6 @@
 const router = require('express').Router();
+const apiController = require('../controllers/apiController');
 
-router.get('/', function(req, res) {
-    res.status(200).end();
-})
+router.get('/', apiController.storeData)
 
 module.exports = router;
