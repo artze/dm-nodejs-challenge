@@ -1,3 +1,5 @@
+const validator = require('../lib/validator');
+
 /**
  * Create storeAction with dependencies
  *
@@ -18,6 +20,12 @@ module.exports = function storeActionFactory(p2pFetch, hostedFetch) {
   async function storeAction(inputData) {
     // Your code should be here:
     // 1. Validate inputData
+    try {
+      validator(inputData)
+    } catch (error) {
+      console.error(error);
+      return;
+    }
     // 2. Store inputData in external service(s)
   }
 
