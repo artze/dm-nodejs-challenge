@@ -1,5 +1,7 @@
+const db = require('../storage').db;
+
 function storeData(req, res, next) {
-    console.log('store data triggered')
+    res.status(200).end('done')
 }
 
 module.exports = {
