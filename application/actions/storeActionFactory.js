@@ -27,6 +27,11 @@ module.exports = function storeActionFactory(p2pFetch, hostedFetch) {
       return;
     }
     // 2. Store inputData in external service(s)
+    await hostedFetch('http://localhost:3000/api/app-data', {
+      method: 'POST',
+      body: JSON.stringify(inputData),
+      headers: { 'Content-Type': 'application/json' }
+    })
   }
 
   return storeAction;
