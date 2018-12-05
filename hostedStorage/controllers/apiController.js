@@ -19,8 +19,10 @@ function storeData(req, res, next) {
 }
 
 function getData(req, res, next) {
-  console.log('get data triggered');
-  res.status(200).end();
+  let result = db
+    .get('documents')
+    .value()
+  res.status(200).json(result);
 }
 
 module.exports = {
