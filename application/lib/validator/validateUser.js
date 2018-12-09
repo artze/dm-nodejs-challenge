@@ -4,16 +4,23 @@ const InvalidInputError = require('./InvalidInputError')
 module.exports = function validateUser(user) {
 
   /**
+   * check presence of required fields
+   */
+  if (!user.id || !user.userName) {
+    throw new InvalidInputError('Required fields are missing')
+  }
+
+  /**
    * validate id
    */
-  if (!inputDataValidator.validateId(user.id)) {
+  if (user.id && !inputDataValidator.validateId(user.id)) {
     throw new InvalidInputError('ID field in User is missing or has incorrect format');
   }
 
   /**
    * validate userName
    */
-  if (!inputDataValidator.validateUserName(user.userName)) {
+  if (user.userName && !inputDataValidator.validateUserName(user.userName)) {
     throw new InvalidInputError('USER_NAME field in User is missing or has incorrect format');
   }
 
