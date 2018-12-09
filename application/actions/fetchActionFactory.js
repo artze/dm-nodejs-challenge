@@ -16,8 +16,11 @@ module.exports = function fetchActionFactory(p2pFetch, hostedFetch) {
   async function fetchAction() {
     // Your code should be here:
     // 1. Fetch data from external service(s)
+    const res = await hostedFetch('http://localhost:3000/api/app-data')
+    const data = await res.json()
     // 2. Make sure the returned data matches the input data stored in the store action
     // 3. Return data
+    return data
   }
 
   return fetchAction;
