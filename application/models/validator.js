@@ -37,7 +37,7 @@ function validateEmail(email) {
 }
 
 function validatePaymentAmount(paymentAmount) {
-  if (payment) {
+  if (paymentAmount) {
     return paymentAmount > 0;
   }
   return true;
