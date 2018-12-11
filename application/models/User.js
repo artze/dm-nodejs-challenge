@@ -1,6 +1,5 @@
 const validator = require('./validator');
 const InvalidInputError = require('../lib/validator/InvalidInputError');
-const inputData = require('../data.json');
 
 class User {
   constructor() {
@@ -41,16 +40,13 @@ class User {
   }
 
   static create(id, type, userName, firstName, lastName, email) {
-    let user = new User();
-    user.setWithValidation('id', id);
-    user.setWithValidation('type', type);
-    user.setWithValidation('userName', userName);
-    user.setWithValidation('firstName', firstName);
-    user.setWithValidation('lastName', lastName);
-    user.setWithValidation('email', email);
+    const user = new User();
+    const creatorArgs = arguments;
+    Object.keys(user).forEach(function(value, index) {
+      user.setWithValidation(value, creatorArgs[index]);
+    })
     return user;
   }
 }
 
-let user = User.create(inputData[0].id, inputData[0].type, inputData[0].userName, inputData[0].firstName, inputData[0].lastName, inputData[0].email);
-console.log(user)
+module.exports = User;
