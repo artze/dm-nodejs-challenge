@@ -73,6 +73,10 @@ function validatePresenceOfAnyOneField(...fields) {
   })
 }
 
+function validateIsArray(value) {
+  return Array.isArray(value);
+}
+
 module.exports = {
   validateId,
   validateType,
@@ -83,5 +87,6 @@ module.exports = {
   validateISODate,
   validateMerchantName,
   validateNonEmpty,
-  validatePresenceOfAnyOneField
+  validatePresenceOfAnyOneField,
+  validateIsArray
 }
