@@ -64,6 +64,14 @@ function validateNonEmpty(value) {
   return true
 }
 
+function validatePresenceOfAnyOneField(...fields) {
+  return fields.some(function(field) {
+    if (field) {
+      return true;
+    }
+  })
+}
+
 module.exports = {
   validateId,
   validateType,
@@ -73,5 +81,6 @@ module.exports = {
   validatePaymentAmount,
   validateISODate,
   validateMerchantName,
-  validateNonEmpty
+  validateNonEmpty,
+  validatePresenceOfAnyOneField
 }

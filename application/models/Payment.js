@@ -2,60 +2,108 @@ const validator = require('./validator');
 const InvalidInputError = require('../lib/validator/InvalidInputError');
 
 class Payment {
-  constructor() {
-    this.id = {
-      value: null,
-      validator: [validator.validateId, validator.validateNonEmpty]
-    }
-    this.type = {
-      value: null,
-      validator: [validator.validateType, validator.validateNonEmpty]
-    }
-    this.fromUserId = {
-      value: null,
-      validator: [validator.validateId, validator.validateNonEmpty]
-    }
-    this.toMerchantId = {
-      value: null,
-      validator: [validator.validateId]
-    }
-    this.toUserId = {
-      value: null,
-      validator: [validator.validateId]
-    }
-    this.amount = {
-      value: null,
-      validator: [validator.validatePaymentAmount, validator.validateNonEmpty]
-    }
-    this.createdAt = {
-      value: null,
-      validator: [validator.validateISODate, validator.validateNonEmpty]
-    }
+  constructor(id, type, fromUserId, toMerchantId, toUserId, amount, createdAt) {
+    this.id = id;
+    this.type = type;
+    this.fromUserId = fromUserId;
+    this.toMerchantId = toMerchantId;
+    this.toUserId = toUserId;
+    this.amount = amount;
+    this.createdAt = createdAt;
+    this.validateClassLevelConstraints();
   }
 
-  setWithValidation(key, value) {
-    const dataIsValid = this[key].validator.every(function(validator) {
+  get id() {
+    return this._id;
+  }
+
+  set id(id) {
+    const validators = [validator.validateId, validator.validateNonEmpty];
+    this.setWithValidation('_id', id, validators);
+  }
+
+  get type() {
+    return this._type
+  }
+
+  set type(type) {
+    const validators = [validator.validateType, validator.validateNonEmpty];
+    this.setWithValidation('_type', type, validators);
+  }
+
+  get fromUserId() {
+    return this._fromUserId;
+  }
+
+  set fromUserId(fromUserId) {
+    const validators = [validator.validateId, validator.validateNonEmpty];
+    this.setWithValidation('_fromUserId', fromUserId, validators);
+  }
+
+  get toMerchantId() {
+    return this._toMerchantId;
+  }
+
+  set toMerchantId(toMerchantId) {
+    const validators = [validator.validateId];
+    this.setWithValidation('_toMerchantId', toMerchantId, validators);
+  }
+
+  get toUserId() {
+    return this._toUserId;
+  }
+
+  set toUserId(toUserId) {
+    const validators = [validator.validateId];
+    this.setWithValidation('_toUserId', toUserId, validators);
+  }
+
+  get amount() {
+    return this._amount;
+  }
+
+  set amount(amount) {
+    const validators = [validator.validatePaymentAmount, validator.validateNonEmpty];
+    this.setWithValidation('_amount', amount, validators);
+  }
+
+  get createdAt() {
+    return this._createdAt;
+  }
+
+  set createdAt(createdAt) {
+    const validators = [validator.validateISODate, validator.validateNonEmpty];
+    this.setWithValidation('_createdAt', createdAt, validators);
+  }
+
+    /**
+   * Validate before setting instance variables
+   * @param {string} key 
+   * @param {any} value 
+   * @param {Array<Function>} validators 
+   */
+  setWithValidation(key, value, validators) {
+    const dataIsValid = validators.every(function(validator) {
       return validator(value);
     })
-    if (!dataIsValid) {
+    if(!dataIsValid) {
       throw new InvalidInputError(`Input Error in \'${key}\' field in Payment`);
     }
-    this[key].value = value ? value : null;
+    this[key] = value ? value : null;
   }
 
-  static create(id, type, fromUserId, toMerchantId, toUserId, amount, createdAt) {
-    const payment = new Payment();
-    const creatorArgs = arguments;
-    Object.keys(payment).forEach(function(value, index) {
-      payment.setWithValidation(value, creatorArgs[index]);
-    })
-    return payment;
+  /**
+   * Validate constraints spanning multiple fields
+   */
+  validateClassLevelConstraints() {
+    const validators = [validator.validatePresenceOfAnyOneField(this.toMerchantId, this.toUserId)]
+    const dataIsValid = validators.every(function(validation) {
+      return validation === true;
+    });
+    if (!dataIsValid) {
+      throw new InvalidInputError(`Input Error relating to Class Level Constraints in Payment`);
+    }
   }
 }
 
 module.exports = Payment;
-
-const inputData = require('../data.json');
-
-let payment = Payment.create(inputData[5].id, inputData[5].type, inputData[5].fromUserId, inputData[5].toMerchantId, inputData[5].toUserId, inputData[5].amount, inputData[5].createdAt);
-console.log(payment)
