@@ -1,4 +1,4 @@
-const validator = require('./validator');
+const validator = require('../lib/validator/validator');
 const InvalidInputError = require('../lib/validator/InvalidInputError');
 
 class Merchant {

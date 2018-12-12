@@ -1,5 +1,6 @@
 const emailValidator = require('email-validator');
 const moment = require('moment');
+const modelTypes = require('../../models').modelTypes;
 
 function validateId(id) {
   if (id) {
@@ -9,10 +10,10 @@ function validateId(id) {
 }
 
 function validateType(type) {
-  if (type === 'user' || type === 'payment' || type === 'merchant') {
-    return true
+  if (type) {
+    return modelTypes.includes(type)
   }
-  return false
+  return true
 }
 
 function validateUserName(userName) {
