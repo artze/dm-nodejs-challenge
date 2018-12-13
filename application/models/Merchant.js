@@ -60,6 +60,22 @@ class Merchant {
   serializeToArray() {
     return [this.type, this.id, this.name];
   }
+
+  /**
+   * Deserialize array of object values to object
+   * 
+   * @param {Array<*>} arrayOfObjectValues 
+   * @returns {Object}
+   */
+  static deserializeToObject(arrayOfObjectValues) {
+    const merchantObject = {
+      id: arrayOfObjectValues[1],
+      name: arrayOfObjectValues[2],
+      type: arrayOfObjectValues[0]
+    }
+    
+    return merchantObject;
+  }
 }
 
 module.exports = Merchant;
