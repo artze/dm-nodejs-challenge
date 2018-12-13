@@ -1,4 +1,4 @@
-const validator = require('../lib/validator');
+const parseJsonInput = require('../lib/parseJsonInput');
 
 /**
  * Create storeAction with dependencies
@@ -20,12 +20,9 @@ module.exports = function storeActionFactory(p2pFetch, hostedFetch) {
   async function storeAction(inputData) {
     // Your code should be here:
     // 1. Validate inputData
-    try {
-      validator(inputData)
-    } catch (error) {
-      console.error(error);
-      return;
-    }
+
+    const modelObjectArr = parseJsonInput(inputData);
+
     // 2. Store inputData in external service(s)
     await hostedFetch('http://localhost:3000/api/app-data', {
       method: 'POST',

@@ -1,4 +1,4 @@
-const validateMerchant = require('../../lib/validator/validateMerchant');
+const Merchant = require('../../models/Merchant');
 const InvalidInputError = require('../../lib/validator/InvalidInputError');
 
 describe('validateMerchant', function() {
@@ -9,8 +9,9 @@ describe('validateMerchant', function() {
     before(function() {
 
       userInput = {
-        id: "xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ",
-        name: "Lauriane_Bayer"
+        id: 'xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ',
+        type: 'merchant',
+        name: 'Lauriane_Bayer'
       }
 
     });
@@ -18,7 +19,7 @@ describe('validateMerchant', function() {
     it('should pass all validation tests', function() {
 
       expect(function() {
-        validateMerchant(userInput)
+        new Merchant(userInput.id, userInput.type, userInput.name);
       })
         .to.not.throw();
     });
@@ -31,10 +32,12 @@ describe('validateMerchant', function() {
 
       userInputArr = [
         {
-          name: "Lauriane_Bayer"
+          name: 'Lauriane_Bayer',
+          type: 'merchant'
         },
         {
-          id: "xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ",
+          id: 'xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ',
+          type: 'merchant'
         }
       ]
       
@@ -44,7 +47,7 @@ describe('validateMerchant', function() {
 
       userInputArr.forEach(function(userInput) {
         expect(function() {
-          validateMerchant(userInput)
+          new Merchant(userInput.id, userInput.type, userInput.name);
         })
           .to.throw(InvalidInputError);
       });
@@ -62,15 +65,15 @@ describe('validateMerchant', function() {
           /**
            * data with incorrect id format
            */
-          id: "xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykzKFrQ",
-          name: "Lauriane_Bayer"
+          id: 'xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykzKFrQ',
+          name: 'Lauriane_Bayer'
         },
         {
           /**
            * data with incorrect name format
            */
-          id: "xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ",
-          name: "Lauriane Bayer"
+          id: 'xVCNjyedZb1JLFQxOAzKjzSDltYKfZzIuFlExivXykZtEmaallDlryIcUanzKFrQ',
+          name: 'Lauriane Bayer'
         }
       ]
 
@@ -80,7 +83,7 @@ describe('validateMerchant', function() {
 
       userInputArr.forEach(function(userInput) {
         expect(function() {
-          validateMerchant(userInput)
+          new Merchant(userInput.id, userInput.type, userInput.name);
         })
           .to.throw(InvalidInputError);
       });

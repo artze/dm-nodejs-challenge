@@ -1,15 +1,16 @@
-const validateUser = require('../../lib/validator/validateUser');
+const User = require('../../models/User')
 const InvalidInputError = require('../../lib/validator/InvalidInputError');
 
-describe('validateUser', function() {
+describe('User validation', function() {
   let userInput;
 
-  describe('validateUser with correct fields', function() {
+  describe('validate User with correct fields', function() {
 
     before(function() {
 
       userInput = {
         id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
+        type: 'user',
         userName: 'Arturo_Tremblay',
         firstName: 'Charlotte',
         lastName: 'Bradtke',
@@ -21,28 +22,32 @@ describe('validateUser', function() {
     it('should pass all validation tests', function() {
 
       expect(function() {
-        validateUser(userInput)
+        new User(userInput.id, userInput.type, userInput.userName, userInput.firstName, userInput.lastName, userInput.email)
       })
         .to.not.throw();
 
     });
   });
 
-  describe('validateUser with missing id or username', function() {
+  describe('validate User with missing id or username', function() {
     let userInputArr;
     
     before(function() {
 
       userInputArr = [
         {
-          userName: 'johndoe111',
-          firstName: 'John',
-          lastName: 'Doe'
+          type: 'user',
+          userName: 'Arturo_Tremblay',
+          firstName: 'Charlotte',
+          lastName: 'Bradtke',
+          email: 'Emilio.Stark83@gmail.com'
         },
         {
           id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
-          firstName: 'John',
-          lastName: 'Doe'
+          type: 'user',
+          firstName: 'Charlotte',
+          lastName: 'Bradtke',
+          email: 'Emilio.Stark83@gmail.com'
         }
       ]
 
@@ -52,7 +57,7 @@ describe('validateUser', function() {
 
       userInputArr.forEach(function(userInput) {
         expect(function() {
-          validateUser(userInput)
+          new User(userInput.id, userInput.type, userInput.userName, userInput.firstName, userInput.lastName, userInput.email)
         })
           .to.throw(InvalidInputError);
       });
@@ -70,7 +75,8 @@ describe('validateUser', function() {
           /**
            * data with incorrect id
            */
-          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimI',
+          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgp',
+          type: 'user',
           userName: 'Arturo_Tremblay',
           firstName: 'Charlotte',
           lastName: 'Bradtke',
@@ -80,8 +86,9 @@ describe('validateUser', function() {
           /**
            * data with incorrect username
            */
-          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimI',
-          userName: 'Arturo_Tremb@@',
+          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
+          type: 'user',
+          userName: 'Arturo_Tremblay@@',
           firstName: 'Charlotte',
           lastName: 'Bradtke',
           email: 'Emilio.Stark83@gmail.com'
@@ -90,9 +97,10 @@ describe('validateUser', function() {
           /**
            * data with incorrect firstName
            */
-          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimI',
+          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
+          type: 'user',
           userName: 'Arturo_Tremblay',
-          firstName: 'Char33e',
+          firstName: 'Charlotte2',
           lastName: 'Bradtke',
           email: 'Emilio.Stark83@gmail.com'
         },
@@ -100,21 +108,23 @@ describe('validateUser', function() {
           /**
            * data with incorrect lastName
            */
-          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimI',
+          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
+          type: 'user',
           userName: 'Arturo_Tremblay',
           firstName: 'Charlotte',
-          lastName: 'Bradt ',
+          lastName: 'Bradtke ',
           email: 'Emilio.Stark83@gmail.com'
         },
         {
           /**
            * data with incorrect email
            */
-          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimI',
+          id: 'fyPZYzsBthguAgbMZkAAukWQWASmtOyPwVLw11fQATpxcOgpgUZyZAiyjHWimIcG',
+          type: 'user',
           userName: 'Arturo_Tremblay',
           firstName: 'Charlotte',
           lastName: 'Bradtke',
-          email: 'Emilio.Stark83@gmailm'
+          email: 'Emilio.Stark83@gmail'
         }
       ]
       
@@ -124,7 +134,7 @@ describe('validateUser', function() {
 
       userInputArr.forEach(function(userInput) {
         expect(function() {
-          validateUser(userInput)
+          new User(userInput.id, userInput.type, userInput.userName, userInput.firstName, userInput.lastName, userInput.email)
         })
           .to.throw(InvalidInputError);
       });
