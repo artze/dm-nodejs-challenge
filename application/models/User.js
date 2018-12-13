@@ -90,6 +90,25 @@ class User {
   serializeToArray() {
     return [this.type, this.id, this.userName, this.firstName, this.lastName, this.email];
   }
+
+  /**
+   * Deserialize array of object values to object
+   * 
+   * @param {Array<*>} arrayOfObjectValues 
+   * @returns {Object}
+   */
+  static deserializeToObject(arrayOfObjectValues) {
+    const userObject = {
+      id: arrayOfObjectValues[1],
+      userName: arrayOfObjectValues[2],
+      firstName: arrayOfObjectValues[3],
+      lastName: arrayOfObjectValues[4],
+      email: arrayOfObjectValues[5],
+      type: arrayOfObjectValues[0]
+    }
+
+    return userObject;
+  }
 }
 
 module.exports = User;

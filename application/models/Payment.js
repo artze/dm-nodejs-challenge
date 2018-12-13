@@ -113,6 +113,26 @@ class Payment {
   serializeToArray() {
     return [this.type, this.id, this.fromUserId, this.toMerchantId, this.toUserId, this.amount, this.createdAt];
   }
+
+  /**
+   * Deserialize array of object values to object
+   * 
+   * @param {Array<*>} arrayOfObjectValues 
+   * @returns {Object}
+   */
+  static deserializeToObject(arrayOfObjectValues) {
+    const paymentObject = {
+      id: arrayOfObjectValues[1],
+      fromUserId: arrayOfObjectValues[2],
+      amount: arrayOfObjectValues[5],
+      createdAt: arrayOfObjectValues[6],
+      toMerchantId: arrayOfObjectValues[3],
+      toUserId: arrayOfObjectValues[4],
+      type: arrayOfObjectValues[0]
+    }
+
+    return paymentObject;
+  }
 }
 
 module.exports = Payment;

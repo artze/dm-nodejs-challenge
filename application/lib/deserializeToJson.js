@@ -1,42 +1,33 @@
+const User = require('../models/User');
+const Payment = require('../models/Payment');
+const Merchant = require('../models/Merchant');
+
 /**
  * Deserialize array to objects
  * 
- * @param {Array<Array>} array 
+ * @param {Array<Array>} dataArray 
  * @returns {Array<Object>}
  */
-function deserializeToJson(array) {
+function deserializeToJson(dataArray) {
   let resultArr = [];
-  array.forEach(function(object) {
-    const type = object[0];
+  dataArray.forEach(function(arrayOfObjectValues) {
+    const type = arrayOfObjectValues[0];
 
     if (type === 'user') {
-      const userObject = {
-        id: object[1],
-        userName: object[2],
-        firstName: object[3],
-        lastName: object[4],
-        email: object[5],
-        type: object[0]
-      }
+
+      const userObject = User.deserializeToObject(arrayOfObjectValues)
       resultArr.push(removeNullFields(userObject));
+
     } else if (type === 'payment') {
-      const paymentObject = {
-        id: object[1],
-        fromUserId: object[2],
-        amount: object[5],
-        createdAt: object[6],
-        toMerchantId: object[3],
-        toUserId: object[4],
-        type: object[0]
-      }
+
+      const paymentObject = Payment.deserializeToObject(arrayOfObjectValues);
       resultArr.push(removeNullFields(paymentObject));
+
     } else if (type === 'merchant') {
-      const merchantObject = {
-        id: object[1],
-        name: object[2],
-        type: object[0]
-      }
+      
+      const merchantObject = Merchant.deserializeToObject(arrayOfObjectValues);
       resultArr.push(removeNullFields(merchantObject));
+
     }
   })
 
