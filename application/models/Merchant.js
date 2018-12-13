@@ -35,6 +35,13 @@ class Merchant {
     this.setWithValidation('_name', name, validators);
   }
 
+  /**
+   * Validate before setting instance variables
+   * 
+   * @param {string} key 
+   * @param {any} value 
+   * @param {Array<Function>} validators 
+   */
   setWithValidation(key, value, validators) {
     const dataIsValid = validators.every(function(validator) {
       return validator(value);
@@ -43,6 +50,15 @@ class Merchant {
       throw new InvalidInputError(`Input Error: Merchant input has incorrect \'${key}\' field`);
     }
     this[key] = value ? value : null;
+  }
+
+  /**
+   * Serialize Merchant attributes to array of values
+   * 
+   * @returns {Array<*>}
+   */
+  serializeToArray() {
+    return [this.type, this.id, this.name];
   }
 }
 
