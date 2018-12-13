@@ -104,6 +104,15 @@ class Payment {
       throw new InvalidInputError(`Input Error: Payment Class Level Constraints validation failed`);
     }
   }
+
+  /**
+   * Serialize Payment attributes to array of values
+   * 
+   * @returns {Array<*>}
+   */
+  serializeToArray() {
+    return [this.type, this.id, this.fromUserId, this.toMerchantId, this.toUserId, this.amount, this.createdAt];
+  }
 }
 
 module.exports = Payment;
