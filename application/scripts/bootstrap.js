@@ -11,8 +11,8 @@ const fetchActionFactory = require('../actions/fetchActionFactory');
 async function main() {
   try {
     // eslint-disable-next-line global-require
-    // const inputData = require('../data.json');
-    const inputData = require('../data-test.json');
+    const inputData = require('../data.json');
+    // const inputData = require('../data-test.json');
     
     const results = await runApplication(
       storeActionFactory,

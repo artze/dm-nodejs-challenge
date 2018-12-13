@@ -1,3 +1,5 @@
+const deserializeToJson = require('../lib/deserializeToJson');
+
 /**
  * Create fetchAction with dependencies
  *
@@ -20,7 +22,8 @@ module.exports = function fetchActionFactory(p2pFetch, hostedFetch) {
     const data = await res.json()
     // 2. Make sure the returned data matches the input data stored in the store action
     // 3. Return data
-    return data
+    const deserializedData = deserializeToJson(data);
+    return deserializedData;
   }
 
   return fetchAction;
