@@ -40,7 +40,7 @@ class Merchant {
       return validator(value);
     })
     if(!dataIsValid) {
-      throw new InvalidInputError(`Input Error in \'${key}\' field in Merchant`);
+      throw new InvalidInputError(`Input Error: Merchant input has incorrect \'${key}\' field`);
     }
     this[key] = value ? value : null;
   }

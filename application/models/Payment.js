@@ -87,7 +87,7 @@ class Payment {
       return validator(value);
     })
     if(!dataIsValid) {
-      throw new InvalidInputError(`Input Error in \'${key}\' field in Payment`);
+      throw new InvalidInputError(`Input Error: Payment input has incorrect \'${key}\' field`);
     }
     this[key] = value ? value : null;
   }
@@ -101,7 +101,7 @@ class Payment {
       return validation === true;
     });
     if (!dataIsValid) {
-      throw new InvalidInputError(`Input Error relating to Class Level Constraints in Payment`);
+      throw new InvalidInputError(`Input Error: Payment Class Level Constraints validation failed`);
     }
   }
 }

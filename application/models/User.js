@@ -76,7 +76,7 @@ class User {
       return validator(value);
     })
     if(!dataIsValid) {
-      throw new InvalidInputError(`Input Error in \'${key}\' field in User`);
+      throw new InvalidInputError(`Input Error: User input has incorrect \'${key}\' field`);
     }
     this[key] = value ? value : null;
   }
