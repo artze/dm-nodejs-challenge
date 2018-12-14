@@ -1,5 +1,6 @@
 const parseJsonInput = require('../lib/parseJsonInput');
 const serializeToArray = require('../lib/serializeToArray');
+const config = require('../config/config');
 
 /**
  * Create storeAction with dependencies
@@ -26,7 +27,7 @@ module.exports = function storeActionFactory(p2pFetch, hostedFetch) {
     const serializedObjectArr = serializeToArray(modelObjectArr);
 
     // 2. Store inputData in external service(s)
-    await hostedFetch('http://localhost:3000/api/app-data', {
+    await hostedFetch(`${config.apiDomain}/api/app-data`, {
       method: 'POST',
       body: JSON.stringify(serializedObjectArr),
       headers: { 'Content-Type': 'application/json' }
