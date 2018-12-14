@@ -1,21 +1,14 @@
 FROM node:carbon-alpine
 
-LABEL maintainer="Dash Developers <dev@dash.org>"
-LABEL description="DashDrive Node.JS"
+# Prepare project directory and copy project files
+RUN mkdir -p /opt/deedmob/application
+WORKDIR /opt/deedmob/application
+COPY . /opt/deedmob/application
 
-# Install dependencies first, in a different location
-# for easier app bind mounting for local development
-WORKDIR /
-
-# Install packages
-COPY package.json package-lock.json ./
+# Install dependencies
 RUN npm install
-ENV PATH /node_modules/.bin:$PATH
 
-# Copy project files
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-
+# Set up ENV
 ARG NODE_ENV=production
 ENV NODE_ENV ${NODE_ENV}
 

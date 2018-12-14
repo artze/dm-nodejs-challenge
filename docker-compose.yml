@@ -2,11 +2,14 @@ version: '3'
 services:
   hostedStorage:
     container_name: deedmob-hosted-storage
+    hostname: deedmob-hosted-storage
     build:
       context: ./hostedStorage
     image: deedmob-hosted-storage:latest
     ports:
       - 3000:3000
+    networks:
+      - deedmob
 
   application:
     container_name: deedmob-app
@@ -14,8 +17,11 @@ services:
       context: ./application
     image: deedmob-app:latest
     ports:
-      -9229:9229
+      - 9229:9229
+    depends_on:
+      - "hostedStorage"
+    networks:
+      - deedmob
 
 networks:
-  default:
-    name: deedmob-network
+  deedmob:
