@@ -10,7 +10,7 @@ switch (process.env.NODE_ENV) {
   break;
 
   case 'production':
-  apiDomain = 'http://localhost:3000';
+  apiDomain = 'http://deedmob-hosted-storage:3000';
   break;
 
   case 'test':

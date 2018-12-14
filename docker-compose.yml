@@ -1,17 +1,27 @@
 version: '3'
 services:
+  hostedStorage:
+    container_name: deedmob-hosted-storage
+    hostname: deedmob-hosted-storage
+    build:
+      context: ./hostedStorage
+    image: deedmob-hosted-storage:latest
+    ports:
+      - 3000:3000
+    networks:
+      - deedmob
+
   application:
+    container_name: deedmob-app
     build:
       context: ./application
-    image: dash-code-challange-application
-    working_dir: ${PWD}/application
-    volumes:
-      - ./application:${PWD}/application:delegated
-      # this is a workaround to prevent host node_modules from accidentally getting mounted in container
-      # in case you want to use node/npm both outside container for test/lint etc. and also inside container
-      # this will overwrite the default node_modules dir in container so it won't conflict with our
-      # /node_modules location.
-      - app_node_modules:${PWD}/application/node_modules
+    image: deedmob-app:latest
+    ports:
+      - 9229:9229
+    depends_on:
+      - "hostedStorage"
+    networks:
+      - deedmob
 
-volumes:
-  app_node_modules:
+networks:
+  deedmob:

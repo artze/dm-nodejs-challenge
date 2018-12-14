@@ -1,9 +1,9 @@
 FROM node:carbon-alpine
 
 # Prepare project directory and copy project files
-RUN mkdir -p /opt/deedmob/application
-WORKDIR /opt/deedmob/application
-COPY . /opt/deedmob/application
+RUN mkdir -p /opt/deedmob/hosted-storage/
+WORKDIR /opt/deedmob/hosted-storage/
+COPY . /opt/deedmob/hosted-storage/
 
 # Install dependencies
 RUN npm install
@@ -12,6 +12,6 @@ RUN npm install
 ARG NODE_ENV=production
 ENV NODE_ENV ${NODE_ENV}
 
-EXPOSE 9229
+EXPOSE 3000
 
 CMD ["npm", "start"]

@@ -23,6 +23,8 @@ module.exports = function storeActionFactory(p2pFetch, hostedFetch) {
     // Your code should be here:
     // 1. Validate inputData
 
+    // parse JSON input and create model class objects with validation built in
+    // serialize objects to array of values to reduce payload size
     const modelObjectArr = parseJsonInput(inputData);
     const serializedObjectArr = serializeToArray(modelObjectArr);
 
