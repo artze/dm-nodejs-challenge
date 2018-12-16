@@ -1,7 +1,7 @@
 # Deploy and test the app
   1. Clone the repo
-  2. `cd dm-nodejs-challenge/application` and then run `docker build -t deedmob-app .``
-  3. `cd dm-nodejs-challenge/hostedStorage` and then run `docker build -t deedmob-hosted-storage .``
+  2. `cd dm-nodejs-challenge/application` and then run `docker build -t deedmob-app .`
+  3. `cd dm-nodejs-challenge/hostedStorage` and then run `docker build -t deedmob-hosted-storage .`
   4. `cd dm-nodejs-challenge` and then run `docker-compose up` 
 
 # Node.JS Engineer's Code Challenge
